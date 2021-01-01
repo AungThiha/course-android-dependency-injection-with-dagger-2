@@ -35,7 +35,7 @@ class QuestionsListActivity : BaseActivity(), QuestionListViewMvc.Listener {
 
         dialogsNavigator = DialogsNavigator(supportFragmentManager)
 
-        screensNavigator = ScreensNavigator(this)
+        screensNavigator = compositionRoot.screensNavigator
     }
 
     override fun onStart() {
