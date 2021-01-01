@@ -2,17 +2,17 @@ package com.techyourchance.dagger2course.questions
 
 import com.techyourchance.dagger2course.Constants
 import com.techyourchance.dagger2course.networking.StackoverflowApi
-import com.techyourchance.dagger2course.questions.FetchQuestionsUseCase.Result.*
+import com.techyourchance.dagger2course.questions.FetchQuestionDetailsUseCase.Result.*
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class FetchQuestionsUseCase {
+class FetchQuestionDetailsUseCase {
 
     sealed class Result {
-        class Success(val questions: List<Question>) : Result()
+        class Success(val questionWithBody: QuestionWithBody) : Result()
         object Failure: Result()
     }
 
@@ -24,11 +24,12 @@ class FetchQuestionsUseCase {
 
     private val stackoverflowApi: StackoverflowApi = retrofit.create(StackoverflowApi::class.java)
 
-    suspend fun fetchLatestQuestions(): Result = withContext(Dispatchers.IO) {
+    suspend fun fetchQuestionDetails(questionId: String): Result = withContext(Dispatchers.IO) {
         try {
-            val response = stackoverflowApi.lastActiveQuestions(20)
+            val response = stackoverflowApi.questionDetails(questionId)
             if (response.isSuccessful && response.body() != null) {
-                Success(response.body()!!.questions)
+                val questionWithBody = response.body()!!.question
+                Success(questionWithBody)
             } else {
                 Failure
             }
