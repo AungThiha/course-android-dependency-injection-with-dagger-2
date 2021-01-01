@@ -13,7 +13,7 @@ import com.techyourchance.dagger2course.Constants
 import com.techyourchance.dagger2course.R
 import com.techyourchance.dagger2course.networking.StackoverflowApi
 import com.techyourchance.dagger2course.questions.FetchQuestionDetailsUseCase
-import com.techyourchance.dagger2course.screens.common.dialogs.DialogNavigator
+import com.techyourchance.dagger2course.screens.common.dialogs.DialogsNavigator
 import com.techyourchance.dagger2course.screens.common.dialogs.ServerErrorDialogFragment
 import com.techyourchance.dagger2course.screens.common.toolbar.MyToolbar
 import com.techyourchance.dagger2course.screens.questionslist.QuestionListViewMvc
@@ -31,7 +31,7 @@ class QuestionDetailsActivity : AppCompatActivity(), QuestionDetailsViewMvc.List
 
     private lateinit var fetchQuestionDetailsUseCase: FetchQuestionDetailsUseCase
 
-    private lateinit var dialogNavigator: DialogNavigator
+    private lateinit var dialogsNavigator: DialogsNavigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +40,7 @@ class QuestionDetailsActivity : AppCompatActivity(), QuestionDetailsViewMvc.List
 
         fetchQuestionDetailsUseCase = FetchQuestionDetailsUseCase()
 
-        dialogNavigator = DialogNavigator(supportFragmentManager)
+        dialogsNavigator = DialogsNavigator(supportFragmentManager)
 
         // retrieve question ID passed from outside
         questionId = intent.extras!!.getString(EXTRA_QUESTION_ID)!!
@@ -82,7 +82,7 @@ class QuestionDetailsActivity : AppCompatActivity(), QuestionDetailsViewMvc.List
     }
 
     private fun onFetchFailed() {
-        dialogNavigator.showServerErrorDialog()
+        dialogsNavigator.showServerErrorDialog()
     }
 
     companion object {
