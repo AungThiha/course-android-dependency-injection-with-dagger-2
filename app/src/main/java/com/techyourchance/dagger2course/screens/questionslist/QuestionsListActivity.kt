@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import com.techyourchance.dagger2course.questions.FetchQuestionsUseCase
 import com.techyourchance.dagger2course.questions.Question
+import com.techyourchance.dagger2course.screens.common.ScreensNavigator
 import com.techyourchance.dagger2course.screens.common.dialogs.DialogsNavigator
 import com.techyourchance.dagger2course.screens.questiondetails.QuestionDetailsActivity
 import kotlinx.coroutines.*
@@ -21,6 +22,8 @@ class QuestionsListActivity : AppCompatActivity(), QuestionListViewMvc.Listener 
 
     private lateinit var dialogsNavigator: DialogsNavigator
 
+    private lateinit var screensNavigator: ScreensNavigator
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewMvc = QuestionListViewMvc(LayoutInflater.from(this), null)
@@ -29,6 +32,8 @@ class QuestionsListActivity : AppCompatActivity(), QuestionListViewMvc.Listener 
         fetchQuestionsUseCase = FetchQuestionsUseCase()
 
         dialogsNavigator = DialogsNavigator(supportFragmentManager)
+
+        screensNavigator = ScreensNavigator(this)
     }
 
     override fun onStart() {
@@ -50,7 +55,7 @@ class QuestionsListActivity : AppCompatActivity(), QuestionListViewMvc.Listener 
     }
 
     override fun onQuestionClicked(clickedQuestion: Question) {
-        QuestionDetailsActivity.start(this, clickedQuestion.id)
+        screensNavigator.toQuestionDetails(clickedQuestion.id)
     }
 
     private fun fetchQuestions() {
