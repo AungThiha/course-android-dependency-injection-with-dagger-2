@@ -9,6 +9,9 @@ class PresentationCompositionRoot(
         private val activityCompositionRoot: ActivityCompositionRoot
 ) {
 
+    private val activity
+        get() = activityCompositionRoot.activity
+
     private val fragmentManager
         get() = activityCompositionRoot.fragmentManager
 
