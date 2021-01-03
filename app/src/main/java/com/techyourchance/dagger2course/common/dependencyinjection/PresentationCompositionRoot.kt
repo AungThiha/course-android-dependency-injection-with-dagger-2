@@ -27,7 +27,7 @@ class PresentationCompositionRoot(
     val viewMvcFactory
         get() = ViewMvcFactory(layoutInflater)
 
-    val dialogNavigator
+    val dialogsNavigator
         get() = DialogsNavigator(fragmentManager)
 
     val fetchQuestionsUseCase: FetchQuestionsUseCase
