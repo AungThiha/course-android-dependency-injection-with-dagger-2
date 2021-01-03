@@ -12,7 +12,7 @@ class FetchQuestionDetailsUseCase(
 ) {
 
     sealed class Result {
-        class Success(val questionWithBody: QuestionWithBody) : Result()
+        data class Success(val questionWithBody: QuestionWithBody) : Result()
         object Failure: Result()
     }
 
