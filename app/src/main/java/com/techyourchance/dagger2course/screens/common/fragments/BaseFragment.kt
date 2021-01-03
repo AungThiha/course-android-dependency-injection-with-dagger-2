@@ -11,7 +11,7 @@ abstract class BaseFragment : Fragment() {
 
     private val presentationComponent: PresentationComponent by lazy {
         DaggerPresentationComponent.builder().presentationModule(
-                PresentationModule((requireActivity() as BaseActivity).activityCompositionRoot)
+                PresentationModule((requireActivity() as BaseActivity).activityComponent)
         ).build()
     }
 
