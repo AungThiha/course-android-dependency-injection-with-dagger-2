@@ -1,6 +1,7 @@
-package com.techyourchance.dagger2course.common.dependencyinjection
+package com.techyourchance.dagger2course.common.dependencyinjection.activity
 
 import android.view.LayoutInflater
+import com.techyourchance.dagger2course.common.dependencyinjection.app.AppComponent
 import com.techyourchance.dagger2course.screens.common.ScreensNavigator
 import com.techyourchance.dagger2course.screens.common.activities.BaseActivity
 import dagger.Module
@@ -12,15 +13,12 @@ class ActivityModule(
         private val appComponent: AppComponent
 ) {
 
-    private val screensNavigator by lazy {
-        ScreensNavigator(activity)
-    }
-
     @Provides
     fun activity() = activity
 
     @Provides
-    fun screensNavigator() = screensNavigator
+    @ActivityScope
+    fun screensNavigator() = ScreensNavigator(activity)
 
     @Provides
     fun application() = appComponent.application()
