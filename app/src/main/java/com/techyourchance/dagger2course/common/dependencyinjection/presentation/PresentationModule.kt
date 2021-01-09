@@ -12,24 +12,7 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class PresentationModule(
-        private val activityComponent: ActivityComponent
-) {
-
-    @Provides
-    fun activity() = activityComponent.activity()
-
-    @Provides
-    fun fragmentManager() = activityComponent.fragmentManager()
-
-    @Provides
-    fun layoutInflater() = activityComponent.layoutInflater()
-
-    @Provides
-    fun stackoverflowApi() = activityComponent.stackoverflowApi()
-
-    @Provides
-    fun screensNavigator() = activityComponent.screensNavigator()
+class PresentationModule {
 
     @Provides
     fun viewMvcFactory(layoutInflater: LayoutInflater) =

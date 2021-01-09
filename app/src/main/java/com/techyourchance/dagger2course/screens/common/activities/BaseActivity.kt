@@ -21,9 +21,10 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     private val presentationComponent: PresentationComponent by lazy {
-        DaggerPresentationComponent.builder().presentationModule(
-                PresentationModule(activityComponent)
-        ).build()
+        DaggerPresentationComponent.builder()
+                .activityComponent(activityComponent)
+                .presentationModule(PresentationModule())
+                .build()
     }
 
     val injector get() = presentationComponent

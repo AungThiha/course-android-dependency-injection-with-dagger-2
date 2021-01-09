@@ -9,9 +9,10 @@ import com.techyourchance.dagger2course.screens.common.activities.BaseActivity
 abstract class BaseFragment : Fragment() {
 
     private val presentationComponent: PresentationComponent by lazy {
-        DaggerPresentationComponent.builder().presentationModule(
-                PresentationModule((requireActivity() as BaseActivity).activityComponent)
-        ).build()
+        DaggerPresentationComponent.builder()
+                .activityComponent((requireActivity() as BaseActivity).activityComponent)
+                .presentationModule(PresentationModule())
+                .build()
     }
 
     protected val injector get() = presentationComponent
