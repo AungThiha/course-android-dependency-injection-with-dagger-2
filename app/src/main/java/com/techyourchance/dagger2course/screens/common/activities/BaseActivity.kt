@@ -15,9 +15,9 @@ abstract class BaseActivity : AppCompatActivity() {
         get() = (application as MyApplication).appComponent
 
     val activityComponent: ActivityComponent by lazy {
-        DaggerActivityComponent.builder().activityModule(
-                ActivityModule(this, appComponent)
-        ).build()
+        DaggerActivityComponent.builder()
+                .appComponent(appComponent)
+                .activityModule(ActivityModule(this)).build()
     }
 
     private val presentationComponent: PresentationComponent by lazy {
