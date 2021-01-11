@@ -5,8 +5,9 @@ import com.techyourchance.dagger2course.questions.FetchQuestionsUseCase.Result.*
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class FetchQuestionsUseCase(
+class FetchQuestionsUseCase @Inject constructor(
         private val stackoverflowApi: StackoverflowApi
 ) {
 

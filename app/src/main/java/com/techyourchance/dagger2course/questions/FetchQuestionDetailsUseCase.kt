@@ -6,8 +6,9 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
+import javax.inject.Inject
 
-class FetchQuestionDetailsUseCase(
+class FetchQuestionDetailsUseCase @Inject constructor(
         private val stackoverflowApi: StackoverflowApi
 ) {
 
