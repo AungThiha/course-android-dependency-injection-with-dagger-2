@@ -4,13 +4,17 @@ import android.os.Build
 import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.techyourchance.dagger2course.R
+import com.techyourchance.dagger2course.questions.QuestionWithBody
+import com.techyourchance.dagger2course.screens.common.imageloader.ImageLoader
 import com.techyourchance.dagger2course.screens.common.toolbar.MyToolbar
 import com.techyourchance.dagger2course.screens.common.viewsmvc.BaseViewMvc
 
 class QuestionDetailsViewMvc(
+        private val imageLoader: ImageLoader,
         layoutInflater: LayoutInflater,
         parent: ViewGroup?
 ): BaseViewMvc<QuestionDetailsViewMvc.Listener>(layoutInflater, parent, R.layout.layout_question_details) {
@@ -21,6 +25,8 @@ class QuestionDetailsViewMvc(
 
     private val toolbar: MyToolbar = findViewById(R.id.toolbar)
     private val swipeRefresh: SwipeRefreshLayout = findViewById(R.id.swipeRefresh)
+    private val imgUser: ImageView = findViewById(R.id.img_user)
+    private val txtUser: TextView = findViewById(R.id.txt_user_name)
     private val txtQuestionBody: TextView = findViewById(R.id.txt_question_body)
 
     init {
@@ -42,13 +48,15 @@ class QuestionDetailsViewMvc(
         swipeRefresh.isRefreshing = false
     }
 
-    fun bindQuestionBody(questionBody: String) {
+    fun bindQuestionWithBody(question: QuestionWithBody) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            txtQuestionBody.text = Html.fromHtml(questionBody, Html.FROM_HTML_MODE_LEGACY)
+            txtQuestionBody.text = Html.fromHtml(question.body, Html.FROM_HTML_MODE_LEGACY)
         } else {
             @Suppress("DEPRECATION")
-            txtQuestionBody.text = Html.fromHtml(questionBody)
+            txtQuestionBody.text = Html.fromHtml(question.body)
         }
+        imageLoader.loadImage(question.owner.imageUrl, imgUser)
+        txtUser.text = question.owner.name
     }
 
 }
